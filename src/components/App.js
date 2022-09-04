@@ -10,15 +10,15 @@ class App extends React.Component {
 
   componentDidMount(){
     const {store} = this.props;
-     
+          
+          // listener on state changes
     store.subscribe(()=>{
-      // console.log('updated')
-      //  console.log(this.props.store.getState())
-
-      // forceUpdate() will re-render our whole app component
-      this.forceUpdate()
+      console.log('updated');
+      //  console.log(this.props.store.getState())      
+      this.forceUpdate(); // forceUpdate() will re-render our whole app component  
     })
-    store.dispatch(addMovies(data))
+
+    store.dispatch(addMovies(data));
 
 
     // console.log('state', store.getState());
@@ -26,7 +26,8 @@ class App extends React.Component {
   }
 
   isMovieFavourite = (movie)=>{
-     const {favourites} = this.props.store.getState()
+    const {movies} =  this.props.store.getState();
+     const {favourites} = movies
     //  console.log(favourites);
      const index = favourites.indexOf(movie)
 
@@ -37,13 +38,14 @@ class App extends React.Component {
      return false;
   }
 
-  switchTab = (value)=>{
+  isFavouriteTab = (value)=>{
         this.props.store.dispatch(setShowFavourites(value))
   }
 
   render(){
-    // console.log('render');
-    const {list, favourites, showFavourites} = this.props.store.getState();
+    console.log('render');
+    const {movies} = this.props.store.getState()
+    const {list, favourites, showFavourites} = movies;
     const displayMovies = showFavourites ? favourites : list;
       return (
         <div className="App">
@@ -52,8 +54,8 @@ class App extends React.Component {
           <div className='main'>
 
             <div className='tabs'>
-              <div className= {`tab ${showFavourites? '': 'active-tabs'}`} onClick={()=> this.switchTab(false) }>Movies</div>
-              <div className={`tab ${showFavourites&& 'active-tabs'}`} onClick={()=> this.switchTab(true)}>Favourites</div>
+              <div className= {`tab ${ showFavourites ? '': 'active-tabs'}`} onClick={()=> this.isFavouriteTab(false) }>Movies</div>
+              <div className={`tab ${showFavourites&& 'active-tabs'}`} onClick={()=> this.isFavouriteTab(true)}>Favourites</div>
             </div>
               
               <div className='list'>
@@ -61,7 +63,8 @@ class App extends React.Component {
               (<MovieCard movie={movie} key={`movies-${index}`} dispatch = {this.props.store.dispatch} isMovieFavourite = {this.isMovieFavourite(movie)}/>))
                 }            
               </div>
-             {displayMovies.length === 0 && <div className='no-movies'>No movies to display!</div>}
+
+             {displayMovies.length === 0 && <div className='no-movies' style={{fontSize: 28,textAlign: 'center' }}>No movies to display!</div>}
             </div>              
          </div>
     );
