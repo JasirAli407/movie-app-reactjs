@@ -49,6 +49,7 @@ export  function movies(state = initialMovieState, action){
       return state;
      }
 }
+
 const initialSearchState = {
    result: {}
 }
@@ -73,7 +74,8 @@ const initialRootState = {
 // }
 
 
-export function combineReducers({
-   movies, //redux is smart enough to call this functions likethis:movies(state.movies, action),search(state.search, action)
+export default combineReducers(
+  {  movies, //redux is smart enough to call this functions likethis:movies(state.movies, action),search(state.search, action)
    search
-})
+  }
+)
