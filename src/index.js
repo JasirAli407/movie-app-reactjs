@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './components/App'; 
-import rootReducer from './reducers'
+import rootReducer from './reducers';
 
 // MIDDLEWARE
 // this function will get an object as argument that contain dispatch() and getState() property of store
@@ -21,17 +22,18 @@ import rootReducer from './reducers'
 
 // the above code can be written as:
 const logger = ({dispatch, getState})=> (next)=> (action)=>{
-  // console.log('Action Type:', action.type);
+   if(typeof action !== 'function'){console.log('Action Type:', action.type);}
+   
   next(action)
 }
   
-// this is how thunk middleware created. we have a package redux-thunk so no ned to use this
-const thunk= ({dispatch, getState})=> (next)=> (action)=> {  
-  
- if( typeof action === 'function') return action(dispatch);
+//  this is how THUNK middleware created. we have a package redux-thunk so no ned to use this
+// const thunk= ({dispatch, getState})=> (next)=> (action)=> {    
+//  if( typeof action === 'function') return action(dispatch);
+//   next(action);
+// }
 
-  next(action);
-}
+
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 // console.log('store', store);

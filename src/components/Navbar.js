@@ -1,34 +1,70 @@
 import React from "react";
-import{handleMovieSearch} from '../actions'
+import {handleMovieSearch, addMovieToList,handleClearedSearchBox} from '../actions';
+import SearchResult from './SearchResult'
+// import {data} from '../data';
 
 class Navbar extends React.Component{
 
   constructor(props){
     super(props);
     this.state ={
-      showSearchResults: false,
       searchText: ''
     }
   }
 
-  handleChange = (e)=>{
-    this.setState({searchText: e.target.value})
-    
-  }
+  handleChange = (e)=>{  
+    if (e.target.value === ''){
+      this.props.dispatch(handleClearedSearchBox())
+    }
+    this.setState({searchText: e.target.value}
+      // ,()=>{
+      // if (this.state.searchText === ''){
+      //   this.props.dispatch(handleClearedSearchBox())
+      // }
+    // }
+    )     
+      // console.log('search-state',this.state.searchText);  
+   
+  }    
+  
 
-  handleSearch = ()=>{
+  handleSearch =  ()=>{
     const {searchText} = this.state;
-    this.props.store.dispatch(handleMovieSearch(searchText))
+    this.props.dispatch(handleMovieSearch(searchText)); 
   }
-    render(){
 
+  handleAddToMovies = (movie)=>{
+    this.props.dispatch(addMovieToList(movie));
+  }
+
+
+    render(){
+        // we can rename result to movies by:
+         const {result:movies,showSearchResults} = this.props.search;
+         console.log('moviessss', movies);
         return(
            <div className="nav">
               <div className="search-container">
-                <input onChange = {this.handleChange} />
+                <input onChange = {this.handleChange}/>
                 <button id="search-btn" onClick={this.handleSearch}>Search</button>
-              </div>
+
+                {showSearchResults &&
+                 <div className="search-results">
+                {movies.map((movie, index)=>{
+                  return(
+                   
+                     <SearchResult handleAddToMovies= {this.handleAddToMovies} movie ={movie} key ={`movie-${index}`}/>
+             
+                  )
+                })}
+                 </div>
+                
+                }
+                
+              </div>                
            </div> 
+
+          
         )
     }
 }

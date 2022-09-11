@@ -40,6 +40,7 @@ body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   z-index: 100;
+  
 }
 .search-result .movie-info {
   display: flex;
@@ -48,16 +49,23 @@ body {
 }
 .search-result .movie-info button {
   margin: 20px 10px;
+  width: fit-content;
+  box-sizing: border-box;
+  padding: 10px 80px;
   background: #21ba45;
   color: #fff;
   font-weight: 600;
   font-size: 14px;
   border: none;
-  padding: 9px 0;
+  /* padding: 9px 0; */
   border-radius: 4px;
 }
-.search-result {
-  display: flex;
+
+.search-result{
+display: flex;
+}
+.search-result:not(:last-child) {  
+  margin-bottom: 10px;
 }
 .search-result img {
   height: 150px;
