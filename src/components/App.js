@@ -1,10 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {data} from '../data';
 import Navbar from './Navbar';
 import MovieCard from './MovieCard';
 import {addMovies, setShowFavourites} from '../actions';
 // import { StoreContext } from '..';
-import {connect} from '..'
+// import {connect} from '..';
 
 
 // console.log('hii',data);

@@ -1,5 +1,6 @@
 import React from "react";
-import { connect } from "..";
+import {connect} from 'react-redux';
+// import { connect } from "..";
 // import {  StoreContext } from "..";
 import {
   handleMovieSearch,
@@ -8,6 +9,8 @@ import {
 } from "../actions";
 import SearchResult from "./SearchResult";
 // import {data} from '../data';
+
+ 
 
 class Navbar extends React.Component {
   constructor(props) {
