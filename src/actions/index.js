@@ -38,14 +38,16 @@ export function setShowFavourites(value){
   }
   }
 
-export function handleMovieSearch(movie){
-  const url = `http://www.omdbapi.com/?apikey=3329c6b&s=${movie}`
+export function handleMovieSearch(searchText){
+  const url = `http://www.omdbapi.com/?apikey=3329c6b&s=${searchText}`
 
   return function(dispatch){
     fetch(url)
-    .then(res => res.json())
+    .then(res =>{
+      // console.log('res',res);
+     return  res.json()})
     .then((movies) =>{
-      console.log("moviezzz", movies);
+      // console.log("movies-fetch-api", movies);
 
       // dispatch an action
       dispatch(addMovieSearchResult(movies.Search));
